@@ -1,0 +1,1765 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Plantilla ABP Emprendedores</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;1,300&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet">
+<style>
+:root {
+  --teal: #50aeb8;
+  --teal-light: #E6F6F8;
+  --teal-mid: #50aeb8;
+  --purple: #532f91;
+  --purple-light: #EDE8F7;
+  --amber: #d45a00;
+  --amber-light: #FFF0E6;
+  --coral: #fb6901;
+  --coral-light: #FFF0E6;
+  --blue: #532f91;
+  --blue-light: #EDE8F7;
+  --green: #347f87;
+  --green-light: #E6F6F8;
+  --ink: #1A1A2E;
+  --ink-60: #5A5A6E;
+  --ink-30: #ABABBC;
+  --border: #E2E2EC;
+  --bg: #F7F7FB;
+  --white: #FFFFFF;
+  --radius: 10px;
+  --radius-sm: 6px;
+  --shadow: 0 2px 12px rgba(26,26,46,0.07);
+  --shadow-hover: 0 4px 20px rgba(26,26,46,0.12);
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: 'DM Sans', sans-serif;
+  background: var(--bg);
+  color: var(--ink);
+  min-height: 100vh;
+  padding: 0;
+}
+
+/* ── HEADER ── */
+.page-header {
+  background: var(--ink);
+  color: white;
+  padding: 2.5rem 2rem 2rem;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+.page-header::before {
+  content: '';
+  position: absolute;
+  top: -60px; right: -60px;
+  width: 220px; height: 220px;
+  border-radius: 50%;
+  background: rgba(80,174,184,0.15);
+}
+.page-header::after {
+  content: '';
+  position: absolute;
+  bottom: -40px; left: -40px;
+  width: 160px; height: 160px;
+  border-radius: 50%;
+  background: rgba(83,47,145,0.12);
+}
+.page-header h1 {
+  font-family: 'DM Serif Display', serif;
+  font-size: clamp(1.6rem, 4vw, 2.4rem);
+  font-weight: 400;
+  letter-spacing: -0.02em;
+  position: relative; z-index: 1;
+  margin-bottom: 0.4rem;
+}
+.page-header p {
+  font-size: 0.875rem;
+  color: rgba(255,255,255,0.6);
+  position: relative; z-index: 1;
+  font-weight: 300;
+}
+.badges {
+  display: flex; flex-wrap: wrap; gap: 6px;
+  justify-content: center;
+  margin-top: 1rem;
+  position: relative; z-index: 1;
+}
+.badge {
+  font-size: 0.7rem; font-weight: 500;
+  padding: 4px 10px; border-radius: 20px;
+  letter-spacing: 0.02em;
+}
+.badge-orange   { background: rgba(80,174,184,0.25); color: #A0DFE6; }
+.badge-purple2 { background: rgba(83,47,145,0.25);  color: #C4AEFF; }
+.badge-amber2  { background: rgba(160,92,10,0.25);  color: #FFB870; }
+.badge-coral2  { background: rgba(251,105,1,0.25);  color: #FFB380; }
+.badge-blue2   { background: rgba(83,47,145,0.25);  color: #C4AEFF; }
+
+/* ── PROGRESS ── */
+.progress-wrap {
+  background: white;
+  border-bottom: 1px solid var(--border);
+  padding: 0.75rem 2rem;
+  position: sticky; top: 0; z-index: 100;
+  display: flex; align-items: center; gap: 12px;
+}
+.progress-bar-outer {
+  flex: 1; height: 5px; background: var(--border);
+  border-radius: 3px; overflow: hidden;
+}
+.progress-bar-inner {
+  height: 100%; background: linear-gradient(90deg, #50aeb8, #347f87);
+  border-radius: 3px; width: 0%; transition: width 0.4s ease;
+}
+.progress-label {
+  font-size: 0.75rem; color: var(--ink-60);
+  white-space: nowrap; font-weight: 500;
+  min-width: 90px; text-align: right;
+}
+
+/* ── LAYOUT ── */
+.container {
+  max-width: 720px;
+  margin: 0 auto;
+  padding: 2rem 1.25rem 4rem;
+}
+
+/* ── SECTION ── */
+.section {
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 1.5rem 1.75rem;
+  margin-bottom: 1.25rem;
+  box-shadow: var(--shadow);
+  transition: box-shadow 0.2s;
+}
+.section:hover { box-shadow: var(--shadow-hover); }
+
+.sec-tag {
+  display: flex; align-items: center; gap: 8px;
+  margin-bottom: 1rem;
+}
+.sec-dot {
+  width: 9px; height: 9px; border-radius: 50%; flex-shrink: 0;
+}
+.sec-tag-text {
+  font-size: 0.7rem; font-weight: 600; letter-spacing: 0.08em;
+  text-transform: uppercase; color: var(--ink-60);
+}
+.sec-tag-sub {
+  font-size: 0.7rem; font-weight: 400; color: var(--ink-30);
+  margin-left: 4px;
+}
+
+/* ── FORM ELEMENTS ── */
+.field { margin-bottom: 1rem; }
+.field:last-child { margin-bottom: 0; }
+.label {
+  display: block;
+  font-size: 0.8rem; font-weight: 500; color: var(--ink-60);
+  margin-bottom: 5px;
+}
+.hint {
+  font-size: 0.75rem; color: var(--ink-30);
+  font-style: italic; margin-bottom: 6px; line-height: 1.5;
+}
+input[type="text"],
+input[type="email"],
+select,
+textarea {
+  width: 100%;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  padding: 9px 13px;
+  font-size: 0.875rem;
+  font-family: 'DM Sans', sans-serif;
+  color: var(--ink);
+  background: var(--white);
+  transition: border-color 0.15s, box-shadow 0.15s;
+  outline: none;
+  resize: vertical;
+}
+input:focus, select:focus, textarea:focus {
+  border-color: var(--teal-mid);
+  box-shadow: 0 0 0 3px rgba(80,174,184,0.1);
+}
+select { cursor: pointer; }
+
+.grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+.grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 12px; }
+.divider { height: 1px; background: var(--border); margin: 1.2rem 0; }
+
+/* ── DOCENTE ROWS ── */
+.docente-row {
+  display: grid; grid-template-columns: 1.4fr 1.6fr 1fr; gap: 10px;
+  margin-bottom: 10px;
+}
+.add-btn {
+  background: transparent;
+  border: 1px dashed var(--border);
+  border-radius: var(--radius-sm);
+  padding: 7px 14px;
+  font-size: 0.8rem;
+  color: var(--ink-60);
+  cursor: pointer;
+  font-family: 'DM Sans', sans-serif;
+  transition: all 0.15s;
+  margin-top: 4px;
+}
+.add-btn:hover { border-color: var(--teal-mid); color: var(--teal); background: var(--teal-light); }
+
+/* ── CHECKBOX AREAS ── */
+.check-grid {
+  display: flex; flex-wrap: wrap; gap: 7px;
+}
+.check-pill {
+  display: flex; align-items: center; gap: 6px;
+  font-size: 0.8rem; cursor: pointer;
+  padding: 5px 11px; border-radius: 20px;
+  border: 1px solid var(--border);
+  background: var(--bg);
+  transition: all 0.15s;
+  user-select: none;
+}
+.check-pill:hover { border-color: var(--teal-mid); background: var(--teal-light); }
+.check-pill input[type="checkbox"] {
+  width: 14px; height: 14px;
+  cursor: pointer; accent-color: var(--teal-mid);
+  flex-shrink: 0;
+}
+.check-pill.checked-teal   { border-color: var(--teal-mid);  background: var(--teal-light);  color: var(--teal); }
+.check-pill.checked-purple { border-color: var(--purple);    background: var(--purple-light); color: var(--purple); }
+.check-pill.checked-amber  { border-color: var(--amber);     background: var(--amber-light);  color: var(--amber); }
+
+/* ── COMPETENCIAS ── */
+.comp-group {
+  border: 1px solid var(--border); border-radius: var(--radius-sm);
+  padding: 1rem 1.1rem; margin-bottom: 10px;
+}
+.comp-group-title {
+  font-size: 0.8rem; font-weight: 600; margin-bottom: 8px;
+  display: flex; align-items: center; gap: 8px; color: var(--ink);
+}
+.comp-group-sub { font-size: 0.72rem; color: var(--ink-30); font-weight: 400; }
+
+/* ── FASE CARDS ── */
+.fase-card {
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  padding: 1rem 1.1rem;
+  margin-bottom: 10px;
+  transition: border-color 0.15s;
+}
+.fase-card:hover { border-color: var(--blue); }
+.fase-header {
+  display: flex; align-items: flex-start; gap: 10px; margin-bottom: 8px;
+}
+.fase-num {
+  width: 30px; height: 30px; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 0.8rem; font-weight: 600; flex-shrink: 0; margin-top: 1px;
+}
+.fase-title { font-size: 0.9rem; font-weight: 600; color: var(--ink); }
+.fase-sub { font-size: 0.75rem; color: var(--ink-60); margin-top: 2px; line-height: 1.4; }
+
+/* ── GANAG BOX ── */
+.ganag-intro {
+  background: linear-gradient(135deg, #F0F4FF 0%, #EEF8F4 100%);
+  border: 1px solid #D0D8FF;
+  border-radius: var(--radius-sm);
+  padding: 1rem 1.25rem;
+  margin-bottom: 14px;
+}
+.ganag-intro-title {
+  font-size: 0.8rem; font-weight: 600; color: var(--purple);
+  margin-bottom: 4px; display: flex; align-items: center; gap: 6px;
+}
+.ganag-intro p {
+  font-size: 0.78rem; color: var(--ink-60); line-height: 1.6;
+}
+.ganag-items { display: flex; flex-direction: column; gap: 8px; }
+.ganag-item {
+  display: grid; grid-template-columns: 28px 1fr; gap: 10px; align-items: start;
+}
+.ganag-letter {
+  width: 28px; height: 28px; border-radius: 50%;
+  background: var(--purple-light); color: var(--purple);
+  font-size: 0.8rem; font-weight: 700;
+  display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+}
+.ganag-item-inner { display: flex; flex-direction: column; gap: 4px; }
+.ganag-item-label { font-size: 0.8rem; font-weight: 600; color: var(--ink); }
+.ganag-item-hint  { font-size: 0.73rem; color: var(--ink-60); font-style: italic; }
+
+/* ── TABLA MATRIZ ── */
+.tabla-wrap { overflow-x: auto; }
+table.matriz {
+  width: 100%; border-collapse: collapse; font-size: 0.8rem;
+}
+table.matriz th {
+  background: var(--bg); color: var(--ink-60); font-weight: 500;
+  padding: 9px 10px; text-align: left;
+  border: 1px solid var(--border);
+  font-size: 0.75rem;
+}
+table.matriz td {
+  padding: 7px 10px; border: 1px solid var(--border); vertical-align: top;
+}
+table.matriz tr:nth-child(even) td { background: var(--bg); }
+table.matriz input,
+table.matriz select {
+  border: none; background: transparent;
+  font-size: 0.8rem; padding: 0; width: 100%;
+  color: var(--ink); font-family: 'DM Sans', sans-serif;
+  box-shadow: none;
+}
+table.matriz input:focus,
+table.matriz select:focus {
+  outline: none; background: var(--teal-light);
+  border-radius: 4px; padding: 2px 4px;
+}
+
+/* ── EVALUACIÓN BLOCKS ── */
+.eval-block {
+  border: 1px solid var(--border); border-radius: var(--radius-sm);
+  padding: 1rem 1.1rem; margin-bottom: 10px;
+}
+.eval-block-title {
+  font-size: 0.82rem; font-weight: 600; margin-bottom: 10px;
+  display: flex; align-items: center; gap: 8px;
+}
+.eval-header-row {
+  display: grid; grid-template-columns: 2.6fr 1fr 1fr;
+  gap: 8px; padding-bottom: 6px;
+  border-bottom: 1px solid var(--border); margin-bottom: 4px;
+}
+.eval-header-row span { font-size: 0.72rem; color: var(--ink-30); font-weight: 500; text-align: center; }
+.eval-header-row span:first-child { text-align: left; }
+.eval-row {
+  display: grid; grid-template-columns: 2.6fr 1fr 1fr;
+  gap: 8px; align-items: center;
+  padding: 6px 0; border-bottom: 1px solid var(--border);
+}
+.eval-row:last-child { border-bottom: none; }
+.eval-label { font-size: 0.8rem; color: var(--ink); line-height: 1.4; }
+.eval-check { display: flex; justify-content: center; }
+.eval-check input { width: 16px; height: 16px; accent-color: var(--teal-mid); cursor: pointer; }
+.eval-row select {
+  font-size: 0.75rem; padding: 4px 6px;
+  border: 1px solid var(--border); border-radius: 4px;
+  width: 100%;
+}
+
+/* ── SUBMIT ── */
+.submit-wrap { margin-top: 1.5rem; }
+.submit-email-note {
+  background: var(--amber-light); border: 1px solid #FFB870;
+  border-radius: var(--radius-sm); padding: 10px 14px;
+  font-size: 0.8rem; color: var(--amber); margin-bottom: 14px;
+  line-height: 1.5;
+}
+.btn-row {
+  display: grid; grid-template-columns: 1fr auto;
+  gap: 12px; align-items: stretch;
+}
+.submit-btn {
+  background: linear-gradient(135deg, #50aeb8, #347f87);
+  color: white;
+  border: none; border-radius: var(--radius-sm);
+  padding: 13px 20px;
+  font-size: 1rem; font-weight: 500;
+  font-family: 'DM Sans', sans-serif;
+  cursor: pointer;
+  transition: opacity 0.15s, transform 0.1s;
+  box-shadow: 0 3px 12px rgba(80,174,184,0.35);
+}
+.submit-btn:hover { opacity: 0.9; }
+.submit-btn:active { transform: scale(0.99); }
+.submit-btn:disabled {
+  background: var(--border); color: var(--ink-30);
+  box-shadow: none; cursor: not-allowed;
+}
+.print-btn {
+  background: var(--white);
+  color: var(--ink-60);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  padding: 13px 20px;
+  font-size: 0.9rem; font-weight: 500;
+  font-family: 'DM Sans', sans-serif;
+  cursor: pointer;
+  display: flex; align-items: center; gap: 8px;
+  white-space: nowrap;
+  transition: all 0.15s;
+}
+.print-btn:hover {
+  border-color: var(--ink-60);
+  background: var(--bg);
+  color: var(--ink);
+}
+/* ── PRINT ── */
+@media print {
+  body * { visibility: hidden; }
+  #printArea, #printArea * { visibility: visible; }
+  #printArea {
+    position: absolute; top: 0; left: 0; width: 100%;
+  }
+}
+.print-header { display: none; }
+
+.msg {
+  padding: 14px 16px; border-radius: var(--radius-sm);
+  font-size: 0.875rem; margin-top: 1rem; line-height: 1.7;
+  display: none;
+}
+.msg.ok { background: var(--teal-light); color: var(--teal); border: 1px solid #B3E5EA; display: block; }
+.msg.err { background: var(--coral-light); color: var(--coral); border: 1px solid #F5C0BB; display: block; }
+
+/* ── RESPONSIVE ── */
+@media (max-width: 600px) {
+  .grid-2, .grid-3 { grid-template-columns: 1fr; }
+  .docente-row { grid-template-columns: 1fr; }
+  .section { padding: 1.2rem 1rem; }
+  .eval-row, .eval-header-row { grid-template-columns: 1.8fr 1fr 1fr; }
+  .page-header { padding: 2rem 1rem 1.75rem; }
+}
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<div class="page-header">
+  <h1>Diseño de proyectos transversales</h1>
+  <p>Enfoque en emprendimiento + STEAM</p>
+  <div class="badges">
+    <span class="badge badge-purple2">Competencias digitales</span>
+    <span class="badge badge-amber2">Emprendedoras</span>
+    <span class="badge badge-coral2">Socioemocionales</span>
+  </div>
+</div>
+
+<!-- BARRA DE PROGRESO -->
+<div class="progress-wrap">
+  <div class="progress-bar-outer">
+    <div class="progress-bar-inner" id="progFill"></div>
+  </div>
+  <span class="progress-label" id="progLabel">Completado: 0%</span>
+</div>
+
+<div class="container">
+
+<!-- Solo visible al imprimir -->
+<div class="print-header">
+  <h2>Plantilla ABP Emprendedores</h2>
+  <p>Enfoque en emprendimiento + STEAM</p>
+</div>
+
+<!-- ═══════════════════════════════════════
+     BLOQUE 1 · IDENTIFICACIÓN
+════════════════════════════════════════ -->
+<div class="section">
+  <div class="sec-tag">
+    <span class="sec-dot" style="background:var(--teal-mid)"></span>
+    <span class="sec-tag-text">Bloque 1</span>
+    <span class="sec-tag-sub">· Datos de identificación del equipo docente</span>
+  </div>
+
+  <div class="grid-2">
+    <div class="field">
+      <label class="label">Institución educativa</label>
+      <input type="text" name="institucion" id="institucion" placeholder="Nombre del colegio" oninput="calcProgress()">
+    </div>
+    <div class="field">
+      <label class="label">Grado</label>
+      <select name="grado" id="grado" onchange="calcProgress()">
+        <option value="">Seleccionar...</option>
+        <option>6° grado</option><option>7° grado</option><option>8° grado</option>
+        <option>9° grado</option><option>10° grado</option><option>11° grado</option>
+      </select>
+    </div>
+  </div>
+
+  <div class="field" style="max-width:280px">
+    <label class="label">Tiempo estimado del proyecto</label>
+    <select name="tiempo" id="tiempo" onchange="calcProgress()">
+      <option value="">Seleccionar duración...</option>
+      <option>2 semanas</option><option>3 semanas</option><option>4 semanas</option>
+      <option>6 semanas</option><option>8 semanas</option>
+    </select>
+  </div>
+
+  <div class="divider"></div>
+
+  <div class="field">
+    <label class="label">Equipo docente</label>
+    <p class="hint">Registra a cada docente que participa en el proyecto: nombre, correo y área que lidera.</p>
+    <div id="docentesContainer">
+      <div class="docente-row">
+        <input type="text" placeholder="Nombre completo" class="d-nombre" oninput="calcProgress()">
+        <input type="email" placeholder="correo@institución.edu.co" class="d-correo" oninput="calcProgress()">
+        <input type="text" placeholder="Área que lidera" class="d-area" oninput="calcProgress()">
+      </div>
+    </div>
+    <button type="button" class="add-btn" onclick="addDocente()">+ Agregar otro docente</button>
+  </div>
+
+  <div class="divider"></div>
+
+  <div class="field">
+    <label class="label">Áreas integradas en el proyecto</label>
+    <p class="hint">Marca todas las que participan activamente en el diseño y ejecución del proyecto.</p>
+    <div class="check-grid" id="areasGrid">
+      <label class="check-pill"><input type="checkbox" onchange="updatePill(this,'checked-teal');calcProgress()"> Ciencias Naturales</label>
+      <label class="check-pill"><input type="checkbox" onchange="updatePill(this,'checked-teal');calcProgress()"> Ciencias Sociales</label>
+      <label class="check-pill"><input type="checkbox" onchange="updatePill(this,'checked-teal');calcProgress()"> Matemáticas</label>
+      <label class="check-pill"><input type="checkbox" onchange="updatePill(this,'checked-teal');calcProgress()"> Lenguaje</label>
+      <label class="check-pill"><input type="checkbox" onchange="updatePill(this,'checked-teal');calcProgress()"> Tecnología e Informática</label>
+      <label class="check-pill"><input type="checkbox" onchange="updatePill(this,'checked-teal');calcProgress()"> Emprendimiento</label>
+      <label class="check-pill"><input type="checkbox" onchange="updatePill(this,'checked-teal');calcProgress()"> Educación Física</label>
+      <label class="check-pill"><input type="checkbox" onchange="updatePill(this,'checked-teal');calcProgress()"> Educación Artística</label>
+      <label class="check-pill"><input type="checkbox" onchange="updatePill(this,'checked-teal');calcProgress()"> Ética y Valores</label>
+      <label class="check-pill" id="otraPill"><input type="checkbox" onchange="updatePill(this,'checked-teal');toggleOtra(this);calcProgress()"> Otra</label>
+    </div>
+    <input type="text" id="otraArea" placeholder="¿Cuál área?" style="display:none;margin-top:10px;max-width:260px" oninput="calcProgress()">
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════
+     BLOQUE 2 · TÍTULO Y OBJETIVOS
+════════════════════════════════════════ -->
+<div class="section">
+  <div class="sec-tag">
+    <span class="sec-dot" style="background:var(--teal)"></span>
+    <span class="sec-tag-text">Bloque 2</span>
+    <span class="sec-tag-sub">· Título y objetivos del proyecto</span>
+  </div>
+
+  <div class="field">
+    <label class="label">Título del proyecto</label>
+    <p class="hint">Dale un nombre claro y motivador. Ej: "Agua para todos: soluciones desde el barrio" o "Emprendedores del clima".</p>
+    <input type="text" id="tituloproyecto" name="tituloproyecto" placeholder="Escribe aquí el título del proyecto..." oninput="calcProgress()">
+  </div>
+
+  <div class="divider"></div>
+
+  <div class="field">
+    <label class="label">Objetivo general</label>
+    <div style="background:var(--teal-light);border:1px solid #A8DDD0;border-radius:var(--radius-sm);padding:10px 14px;margin-bottom:10px">
+      <p style="font-size:0.78rem;color:var(--teal);line-height:1.6;margin:0">
+        <strong>Sugerencia SMART:</strong> redacta el objetivo indicando
+        <strong>qué lograrán</strong> los estudiantes (específico),
+        <strong>cómo se medirá</strong> (medible),
+        <strong>si es alcanzable</strong> en el tiempo disponible (alcanzable),
+        <strong>su relevancia</strong> para el contexto real (relevante) y
+        <strong>en cuántas semanas</strong> se logrará (con tiempo definido).<br>
+        <em>Ej: "Diseñar una propuesta de solución viable para reducir en un 20% la generación de residuos sólidos en el colegio, sustentada con los datos recolectados de la comunidad escolar para ser presentada al finalizar las 4 semanas del proyecto."</em>
+      </p>
+    </div>
+    <textarea id="objetivoGeneral" name="objetivoGeneral" rows="3"
+      placeholder="Iniciar con un verbo en infinitivo. (Tener en cuenta los niveles de la taxonomía de Bloom)" oninput="calcProgress()"></textarea>
+  </div>
+
+  <div class="field">
+    <label class="label">Objetivos específicos</label>
+    <p class="hint">Describe los pasos o aprendizajes intermedios que harán posible el objetivo general. Puedes escribir entre 2 y 4 objetivos, uno por línea.</p>
+    <textarea id="objetivosEspecificos" name="objetivosEspecificos" rows="4"
+      placeholder="1. Identificar las causas principales del problema local mediante investigación de campo.&#10;2. Analizar la información recolectada aplicando conceptos de las áreas integradas.&#10;3. Diseñar una solución creativa y viable al problema identificado.&#10;4. Comunicar los resultados del proyecto ante una audiencia real." oninput="calcProgress()"></textarea>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════
+     BLOQUE 3 · COMPETENCIAS
+════════════════════════════════════════ -->
+<div class="section">
+  <div class="sec-tag">
+    <span class="sec-dot" style="background:var(--purple)"></span>
+    <span class="sec-tag-text">Bloque 3</span>
+    <span class="sec-tag-sub">· Competencias que desarrolla el proyecto</span>
+  </div>
+  <p class="hint" style="margin-bottom:1rem">Selecciona las competencias que trabajarás intencionalmente. Tu selección aquí guiará la planeación y la evaluación de los bloques siguientes.</p>
+
+  <!-- DIGITALES ISTE -->
+  <div class="comp-group" id="compDigital">
+    <div class="comp-group-title">
+      <span style="width:10px;height:10px;border-radius:50%;background:var(--blue);display:inline-block;flex-shrink:0"></span>
+      Competencias digitales
+      <span class="comp-group-sub">— Estándares ISTE para estudiantes</span>
+    </div>
+    <div class="check-grid">
+      <label class="check-pill"><input type="checkbox" onchange="updatePill(this,'checked-teal');calcProgress()"> <span>Estudiante empoderado: gestiona su aprendizaje con tecnología</span></label>
+      <label class="check-pill"><input type="checkbox" onchange="updatePill(this,'checked-teal');calcProgress()"> <span>Ciudadano digital: usa la tecnología de forma ética y responsable</span></label>
+      <label class="check-pill"><input type="checkbox" onchange="updatePill(this,'checked-teal');calcProgress()"> <span>Constructor de conocimiento: evalúa y cura información de fuentes digitales</span></label>
+      <label class="check-pill"><input type="checkbox" onchange="updatePill(this,'checked-teal');calcProgress()"> <span>Diseñador innovador: usa proceso de diseño para resolver problemas reales</span></label>
+      <label class="check-pill"><input type="checkbox" onchange="updatePill(this,'checked-teal');calcProgress()"> <span>Pensador computacional: descompone problemas y diseña soluciones algorítmicas</span></label>
+      <label class="check-pill"><input type="checkbox" onchange="updatePill(this,'checked-teal');calcProgress()"> <span>Comunicador creativo: comunica ideas con medios digitales para audiencias reales</span></label>
+      <label class="check-pill"><input type="checkbox" onchange="updatePill(this,'checked-teal');calcProgress()"> <span>Colaborador global: usa herramientas digitales para trabajar con otros en proyectos</span></label>
+    </div>
+  </div>
+
+  <!-- SOCIOEMOCIONALES -->
+  <div class="comp-group" id="compSocio">
+    <div class="comp-group-title">
+      <span style="width:10px;height:10px;border-radius:50%;background:#fb6901;display:inline-block;flex-shrink:0"></span>
+      Competencias socioemocionales
+      <span class="comp-group-sub">— Modelos CASEL / Bisquerra / Navegar Seguros</span>
+    </div>
+    <div class="check-grid">
+      <label class="check-pill"><input type="checkbox" onchange="updatePill(this,'checked-purple');calcProgress()"> <span>Autoconciencia: reconoce sus emociones y fortalezas</span></label>
+      <label class="check-pill"><input type="checkbox" onchange="updatePill(this,'checked-purple');calcProgress()"> <span>Autorregulación: maneja emociones y tolera la frustración</span></label>
+      <label class="check-pill"><input type="checkbox" onchange="updatePill(this,'checked-purple');calcProgress()"> <span>Conciencia social: empatía y comportamiento prosocial</span></label>
+      <label class="check-pill"><input type="checkbox" onchange="updatePill(this,'checked-purple');calcProgress()"> <span>Comunicación positiva: escucha activa y asertividad</span></label>
+      <label class="check-pill"><input type="checkbox" onchange="updatePill(this,'checked-purple');calcProgress()"> <span>Habilidades de relación: cooperación y manejo de conflictos</span></label>
+      <label class="check-pill"><input type="checkbox" onchange="updatePill(this,'checked-purple');calcProgress()"> <span>Toma de decisiones responsable: evalúa consecuencias y actúa con criterio</span></label>
+      <label class="check-pill"><input type="checkbox" onchange="updatePill(this,'checked-purple');calcProgress()"> <span>Autonomía emocional: autoestima, automotivación y resiliencia</span></label>
+      <label class="check-pill"><input type="checkbox" onchange="updatePill(this,'checked-purple');calcProgress()"> <span>Bienestar y proyección: se fija metas positivas y realistas</span></label>
+    </div>
+  </div>
+
+  <!-- EMPRENDEDORAS -->
+  <div class="comp-group" id="compEmpre">
+    <div class="comp-group-title">
+      <span style="width:10px;height:10px;border-radius:50%;background:var(--amber);display:inline-block;flex-shrink:0"></span>
+      Competencias emprendedoras
+      <span class="comp-group-sub">— Marco Fundadiv</span>
+    </div>
+    <div class="check-grid">
+      <label class="check-pill"><input type="checkbox" onchange="updatePill(this,'checked-amber');calcProgress()"> <span>Empatía: comprende necesidades y emociones de otros</span></label>
+      <label class="check-pill"><input type="checkbox" onchange="updatePill(this,'checked-amber');calcProgress()"> <span>Motivación: mantiene el propósito ante obstáculos</span></label>
+      <label class="check-pill"><input type="checkbox" onchange="updatePill(this,'checked-amber');calcProgress()"> <span>Pensamiento analítico: descompone problemas con lógica y precisión</span></label>
+      <label class="check-pill"><input type="checkbox" onchange="updatePill(this,'checked-amber');calcProgress()"> <span>Pensamiento crítico: evalúa información y forma juicios fundamentados</span></label>
+      <label class="check-pill"><input type="checkbox" onchange="updatePill(this,'checked-amber');calcProgress()"> <span>Resolución de problemas: genera alternativas eficaces y viables</span></label>
+      <label class="check-pill"><input type="checkbox" onchange="updatePill(this,'checked-amber');calcProgress()"> <span>Creatividad e innovación: genera ideas originales ante retos</span></label>
+
+      <label class="check-pill"><input type="checkbox" onchange="updatePill(this,'checked-amber');calcProgress()"> <span>Trabajo colaborativo: articula esfuerzos individuales hacia un objetivo común</span></label>
+      <label class="check-pill"><input type="checkbox" onchange="updatePill(this,'checked-amber');calcProgress()"> <span>Liderazgo colaborativo: participa activamente en la toma de decisiones y superación de obstáculos desde el respeto, la confianza y el diálogo</span></label>
+      <label class="check-pill"><input type="checkbox" onchange="updatePill(this,'checked-amber');calcProgress()"> <span>Planeación estratégica: define metas y anticipa obstáculos</span></label>
+      <label class="check-pill"><input type="checkbox" onchange="updatePill(this,'checked-amber');calcProgress()"> <span>Inteligencia financiera: toma decisiones sobre recursos económicos</span></label>
+      <label class="check-pill"><input type="checkbox" onchange="updatePill(this,'checked-amber');calcProgress()"> <span>Pensamiento computacional: identifica patrones y diseña algoritmos de solución</span></label>
+      <label class="check-pill"><input type="checkbox" onchange="updatePill(this,'checked-amber');calcProgress()"> <span>Colaborador global: contribuye activamente a objetivos locales y globales</span></label>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════
+     BLOQUE 4 · PREGUNTA RETADORA Y ODS
+════════════════════════════════════════ -->
+<div class="section">
+  <div class="sec-tag">
+    <span class="sec-dot" style="background:#fb6901"></span>
+    <span class="sec-tag-text">Bloque 4</span>
+    <span class="sec-tag-sub">· Pregunta retadora y ODS articuladores</span>
+  </div>
+  <p class="hint">Formula la pregunta que dará vida a todo el proyecto. Debe conectar el contexto local con el ODS elegido. Ej: "¿Cómo podría nuestra comunidad reducir el desperdicio de agua sin gastar dinero?"</p>
+
+  <div class="field">
+    <label class="label">Escribe aquí la pregunta retadora del proyecto</label>
+    <textarea id="preguntaRetadora" name="preguntaRetadora" rows="3"
+      placeholder="¿Cómo podemos...? / ¿De qué manera...? / ¿Qué pasaría si...?" oninput="calcProgress()"></textarea>
+  </div>
+
+  <div class="grid-2">
+    <div class="field">
+      <label class="label">ODS articulador principal</label>
+      <select id="ods" name="ods" onchange="calcProgress()">
+        <option value="">Seleccionar ODS...</option>
+        <option>ODS 1 · Fin de la pobreza</option><option>ODS 2 · Hambre cero</option>
+        <option>ODS 3 · Salud y bienestar</option><option>ODS 4 · Educación de calidad</option>
+        <option>ODS 6 · Agua limpia y saneamiento</option><option>ODS 7 · Energía asequible</option>
+        <option>ODS 8 · Trabajo decente</option><option>ODS 10 · Reducción de desigualdades</option>
+        <option>ODS 11 · Ciudades sostenibles</option><option>ODS 12 · Producción responsable</option>
+        <option>ODS 13 · Acción climática</option><option>ODS 15 · Vida de ecosistemas</option>
+        <option>ODS 16 · Paz y justicia</option><option>ODS 17 · Alianzas para los objetivos</option>
+      </select>
+    </div>
+    <div class="field">
+      <label class="label">ODS secundario (opcional)</label>
+      <select id="ods2" name="ods2" onchange="calcProgress()">
+        <option value="">Ninguno / Seleccionar...</option>
+        <option>ODS 1 · Fin de la pobreza</option><option>ODS 2 · Hambre cero</option>
+        <option>ODS 3 · Salud y bienestar</option><option>ODS 4 · Educación de calidad</option>
+        <option>ODS 6 · Agua limpia y saneamiento</option><option>ODS 7 · Energía asequible</option>
+        <option>ODS 8 · Trabajo decente</option><option>ODS 10 · Reducción de desigualdades</option>
+        <option>ODS 11 · Ciudades sostenibles</option><option>ODS 12 · Producción responsable</option>
+        <option>ODS 13 · Acción climática</option><option>ODS 15 · Vida de ecosistemas</option>
+        <option>ODS 16 · Paz y justicia</option><option>ODS 17 · Alianzas para los objetivos</option>
+      </select>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════
+     BLOQUE 5 · MATRIZ DE ALINEACIÓN
+════════════════════════════════════════ -->
+<div class="section">
+  <div class="sec-tag">
+    <span class="sec-dot" style="background:var(--amber)"></span>
+    <span class="sec-tag-text">Bloque 5</span>
+    <span class="sec-tag-sub">· Matriz de alineación curricular</span>
+  </div>
+  <p class="hint">Por cada área integrada, relaciona el estándar MEN/DBA que se trabajará, el tipo de competencia transversal y cómo se hará visible ese aprendizaje en los estudiantes.</p>
+  <div class="tabla-wrap">
+    <table class="matriz">
+      <thead>
+        <tr>
+          <th style="width:20%">Área</th>
+          <th style="width:32%">Estándar MEN / DBA</th>
+          <th style="width:22%">Tipo de competencia</th>
+          <th style="width:26%">¿Cómo se evidencia? <em style="font-weight:400">(ej: informe en Canva con datos recolectados)</em></th>
+        </tr>
+      </thead>
+      <tbody id="matrizBody"></tbody>
+    </table>
+  </div>
+  <button type="button" class="add-btn" onclick="addMatrizRow()" style="margin-top:10px">+ Agregar área</button>
+</div>
+
+<!-- ═══════════════════════════════════════
+     BLOQUE 6 · RUTA DE ACCIÓN ABP
+════════════════════════════════════════ -->
+<div class="section">
+  <div class="sec-tag">
+    <span class="sec-dot" style="background:var(--blue)"></span>
+    <span class="sec-tag-text">Bloque 6</span>
+    <span class="sec-tag-sub">· Ruta de acción — fases del ABP</span>
+  </div>
+
+  <p class="hint" style="margin-bottom:1rem">Para cada fase, describe en 2–3 frases qué harán los estudiantes. Sé concreto: ¿qué actividad, con qué herramienta o recurso, qué producto parcial generan?</p>
+
+  <div class="fase-card">
+    <div class="fase-header">
+      <div class="fase-num" style="background:#E6F6F8;color:#347f87">1</div>
+      <div><div class="fase-title">Definición del problema</div><div class="fase-sub">Presentar el reto auténtico · Activar saberes previos · Generar necesidad de aprender</div></div>
+    </div>
+    <div class="field">
+      <label class="label">¿Qué harán los estudiantes en esta fase?</label>
+      <textarea id="f1" name="f1" rows="2" placeholder="Ej: Los estudiantes observan un video sobre el problema local, responden 3 preguntas detonantes y comparten en un tablero colaborativo lo que ya saben y lo que necesitan aprender." oninput="calcProgress()"></textarea>
+    </div>
+  </div>
+
+  <div class="fase-card">
+    <div class="fase-header">
+      <div class="fase-num" style="background:#EDE8F7;color:#532f91">2</div>
+      <div><div class="fase-title">Contexto</div><div class="fase-sub">Describir el origen del proyecto · Identificar necesidades de la comunidad · Conectar con los intereses de los estudiantes</div></div>
+    </div>
+
+    <div class="field" style="margin-bottom:10px">
+      <label class="label">¿Qué harán los estudiantes en esta fase?</label>
+      <p class="hint">Describe las actividades con las que los estudiantes explorarán y describirán el contexto que da origen al proyecto. Ej: recorridos, encuestas, observación, conversaciones con la comunidad.</p>
+      <textarea id="f2" name="f2" rows="2" placeholder="Ej: Los estudiantes realizan una encuesta en el barrio para identificar problemáticas sentidas por los vecinos, socializan los resultados en clase y votan las 3 necesidades más urgentes relacionadas con el tema del proyecto." oninput="calcProgress()"></textarea>
+    </div>
+
+    <div class="field" style="margin-bottom:10px">
+      <label class="label">Necesidades identificadas en la comunidad</label>
+      <p class="hint">¿Qué situaciones, carencias o problemas reales del entorno motivan este proyecto? Nómbralos de forma concreta.</p>
+      <textarea id="f2_necesidades" name="f2_necesidades" rows="2" placeholder="Ej: Acumulación de residuos sólidos en espacios públicos del barrio, falta de cultura del reciclaje, escasa participación ciudadana en el cuidado del entorno." oninput="calcProgress()"></textarea>
+    </div>
+
+    <div class="field" style="margin-bottom:10px">
+      <label class="label">Intereses de los estudiantes que dan origen al proyecto</label>
+      <p class="hint">¿Qué les llama la atención, preocupa o motiva a los estudiantes sobre esta realidad? Conectar sus intereses legitima el proyecto y aumenta el compromiso.</p>
+      <textarea id="f2_intereses" name="f2_intereses" rows="2" placeholder="Ej: Los estudiantes expresaron preocupación por el estado del parque cercano al colegio y el interés por aprender a reutilizar materiales de manera creativa." oninput="calcProgress()"></textarea>
+    </div>
+
+    <div class="field" style="background:var(--purple-light);border:1px solid #C8B8F0;border-radius:var(--radius-sm);padding:14px 16px;margin-top:4px">
+      <label class="label" style="color:var(--purple);margin-bottom:4px;font-size:0.85rem">
+        <strong>Organización de grupos y roles</strong>
+      </label>
+      <p class="hint" style="color:#7A5BBF;margin-bottom:12px">En ABP cada estudiante tiene una responsabilidad clara dentro del equipo. Define cómo se organizarán los grupos y qué rol asumirá cada integrante. Esto garantiza participación activa y equitativa de todos.</p>
+
+      <div class="grid-2" style="margin-bottom:10px">
+        <div class="field">
+          <label class="label">Número de integrantes por grupo</label>
+          <select id="f2_tamano" name="f2_tamano" onchange="calcProgress()">
+            <option value="">Seleccionar...</option>
+            <option>2 estudiantes</option>
+            <option>3 estudiantes</option>
+            <option>4 estudiantes</option>
+            <option>5 estudiantes</option>
+            <option>Variable según el contexto</option>
+          </select>
+        </div>
+        <div class="field">
+          <label class="label">Criterio de conformación de grupos</label>
+          <select id="f2_criterio" name="f2_criterio" onchange="calcProgress()">
+            <option value="">Seleccionar...</option>
+            <option>Elección libre por los estudiantes</option>
+            <option>Asignación docente por habilidades complementarias</option>
+            <option>Asignación docente por intereses comunes</option>
+            <option>Aleatorio</option>
+            <option>Por afinidad temática</option>
+            <option>Mixto (docente y estudiantes deciden)</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="field">
+        <label class="label">Roles del equipo que se asignarán</label>
+        <p class="hint" style="color:#7A5BBF">Marca los roles que usarán. Cada estudiante debe tener al menos uno.</p>
+        <div class="check-grid" id="rolesGrid" style="margin-top:4px">
+          <label class="check-pill"><input type="checkbox" onchange="updatePill(this,'checked-purple');calcProgress()"> <span>Líder coordinador: orienta al equipo y modera decisiones</span></label>
+          <label class="check-pill"><input type="checkbox" onchange="updatePill(this,'checked-purple');calcProgress()"> <span>Investigador: busca, selecciona y valida la información</span></label>
+          <label class="check-pill"><input type="checkbox" onchange="updatePill(this,'checked-purple');calcProgress()"> <span>Gestor de recursos: organiza materiales, tiempos y herramientas</span></label>
+          <label class="check-pill"><input type="checkbox" onchange="updatePill(this,'checked-purple');calcProgress()"> <span>Comunicador: redacta, presenta y comunica los resultados</span></label>
+          <label class="check-pill"><input type="checkbox" onchange="updatePill(this,'checked-purple');calcProgress()"> <span>Diseñador / Creativo: da forma visual o estética al producto</span></label>
+          <label class="check-pill"><input type="checkbox" onchange="updatePill(this,'checked-purple');calcProgress()"> <span>Evaluador / Revisor: verifica la calidad y coherencia del trabajo</span></label>
+          <label class="check-pill"><input type="checkbox" onchange="updatePill(this,'checked-purple');calcProgress()"> <span>Conector comunitario: vincula al equipo con actores externos</span></label>
+          <label class="check-pill"><input type="checkbox" onchange="updatePill(this,'checked-purple');calcProgress()"> <span>Tecnólogo: lidera el uso de herramientas digitales del equipo</span></label>
+        </div>
+      </div>
+
+      <div class="field" style="margin-top:10px">
+        <label class="label">Notas sobre la organización de equipos (opcional)</label>
+        <input type="text" id="f2_notas_grupos" name="f2_notas_grupos"
+          placeholder="Ej: Los roles rotan en cada fase para que todos experimenten distintas responsabilidades. Se registran en una tabla de seguimiento compartida." oninput="calcProgress()">
+      </div>
+    </div>
+  </div>
+
+  <div class="fase-card">
+    <div class="fase-header">
+      <div class="fase-num" style="background:#FFF0E6;color:#d45a00">3</div>
+      <div><div class="fase-title">Recolección de información</div><div class="fase-sub">Investigar · Explorar fuentes · Contrastar datos · Documentar hallazgos</div></div>
+    </div>
+    <div class="field">
+      <label class="label">¿Qué harán los estudiantes en esta fase?</label>
+      <select id="f3_sel" name="f3_sel" onchange="syncSelect('f3_sel','f3');calcProgress()" style="margin-bottom:8px">
+          <option value="">Seleccionar actividad principal...</option>
+          <option>Investigación en fuentes digitales verificadas (sitios web, bases de datos, videos educativos)</option>
+          <option>Entrevistas a miembros de la comunidad o expertos en el tema</option>
+          <option>Encuestas aplicadas a estudiantes, docentes o familias</option>
+          <option>Salida de campo u observación directa del entorno</option>
+          <option>Revisión de documentos, noticias o informes locales</option>
+          <option>Experimentos o pruebas en el laboratorio o aula</option>
+          <option>Análisis de datos estadísticos o registros existentes</option>
+          <option>Combinación de varias fuentes (digital + comunitaria + documental)</option>
+        </select>
+        <textarea id="f3" name="f3" rows="2" placeholder="Complementa o describe cómo registrarán y organizarán la información recolectada..." oninput="calcProgress()"></textarea>
+    </div>
+  </div>
+
+  <div class="fase-card">
+    <div class="fase-header">
+      <div class="fase-num" style="background:#EDE8F7;color:#532f91">4</div>
+      <div><div class="fase-title">Síntesis y elaboración del producto</div><div class="fase-sub">Construir la solución · Prototipar · Iterar con retroalimentación de pares</div></div>
+    </div>
+    <div class="field">
+      <label class="label">¿Qué harán los estudiantes en esta fase?</label>
+      <select id="f4_sel" name="f4_sel" onchange="syncSelect('f4_sel','f4');calcProgress()" style="margin-bottom:8px">
+          <option value="">Seleccionar tipo de producto o prototipo...</option>
+          <option>Prototipo físico construido con materiales reciclados o disponibles</option>
+          <option>Maqueta o modelo a escala del diseño propuesto</option>
+          <option>Aplicación, página web o herramienta digital</option>
+          <option>Campaña de comunicación (póster, video, reel, podcast)</option>
+          <option>Plan de negocio o propuesta de emprendimiento social</option>
+          <option>Informe investigativo ilustrado con datos y conclusiones</option>
+          <option>Propuesta escrita dirigida a la comunidad o institución</option>
+          <option>Presentación interactiva (Canva, PowerPoint, Genially)</option>
+          <option>Documental, cortometraje o cápsula informativa</option>
+        </select>
+        <textarea id="f4" name="f4" rows="2" placeholder="Describe cómo mejorarán el producto con retroalimentación de pares o expertos..." oninput="calcProgress()"></textarea>
+    </div>
+  </div>
+
+  <div class="fase-card">
+    <div class="fase-header">
+      <div class="fase-num" style="background:#FFF0E6;color:#fb6901">5</div>
+      <div><div class="fase-title">Presentación de resultados</div><div class="fase-sub">Comunicar ante una audiencia real · Defender ideas · Recibir retroalimentación externa</div></div>
+    </div>
+    <div class="field">
+      <label class="label">¿Qué harán los estudiantes en esta fase?</label>
+      <select id="f5_sel" name="f5_sel" onchange="syncSelect('f5_sel','f5');calcProgress()" style="margin-bottom:8px">
+          <option value="">Seleccionar formato de presentación...</option>
+          <option>Feria de proyectos presencial ante la comunidad educativa</option>
+          <option>Presentación oral con apoyo visual ante el curso o la institución</option>
+          <option>Presentación ante autoridades locales, padres o actores externos</option>
+          <option>Publicación digital en redes educativas o sitio web del colegio</option>
+          <option>Exposición de maquetas o prototipos en espacio físico</option>
+          <option>Presentación de video o documental producido por los estudiantes</option>
+          <option>Pitch de emprendimiento ante un jurado o panel evaluador</option>
+          <option>Taller o demostración práctica para otros estudiantes</option>
+        </select>
+        <textarea id="f5" name="f5" rows="2" placeholder="Describe quiénes serán la audiencia y qué retroalimentación recibirán los equipos..." oninput="calcProgress()"></textarea>
+    </div>
+  </div>
+
+  <div class="fase-card">
+    <div class="fase-header">
+      <div class="fase-num" style="background:#E6F6F8;color:#347f87">6</div>
+      <div><div class="fase-title">Evaluación y reflexión</div><div class="fase-sub">Metacognición · Autoevaluación · Coevaluación · Aprendizajes clave del proyecto</div></div>
+    </div>
+    <div class="field">
+      <label class="label">¿Qué harán los estudiantes en esta fase?</label>
+      <select id="f6_sel" name="f6_sel" onchange="syncSelect('f6_sel','f6');calcProgress()" style="margin-bottom:8px">
+          <option value="">Seleccionar instrumento de reflexión...</option>
+          <option>Ficha de metacognición individual: ¿qué aprendí?, ¿cómo lo aprendí?, ¿qué cambiaría?</option>
+          <option>Carta a mi yo futuro contando los aprendizajes del proyecto</option>
+          <option>Autoevaluación y coevaluación con rúbrica compartida</option>
+          <option>Diario de aprendizaje o bitácora de cierre del proyecto</option>
+          <option>Conversación grupal sobre los logros y dificultades</option>
+          <option>Mapa conceptual de cierre que sintetiza los aprendizajes clave</option>
+          <option>Video-reflexión grabado por cada equipo sobre su proceso</option>
+          <option>Evaluación formativa docente con retroalimentación individual</option>
+        </select>
+        <textarea id="f6" name="f6" rows="2" placeholder="Describe cómo conectarán la reflexión con la pregunta retadora inicial del proyecto..." oninput="calcProgress()"></textarea>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════
+     BLOQUE 7 · PRODUCTO FINAL Y EVALUACIÓN
+════════════════════════════════════════ -->
+<div class="section">
+  <div class="sec-tag">
+    <span class="sec-dot" style="background:#fb6901"></span>
+    <span class="sec-tag-text">Bloque 7</span>
+    <span class="sec-tag-sub">· Producto final y evaluación de competencias</span>
+  </div>
+
+  <div class="grid-2" style="margin-bottom:1.2rem">
+    <div class="field">
+      <label class="label">Tipo de producto final</label>
+      <select id="producto" name="producto" onchange="calcProgress()">
+        <option value="">Seleccionar tipo...</option>
+        <option>Prototipo / Maqueta física</option>
+        <option>Campaña de comunicación</option>
+        <option>App / Herramienta digital</option>
+        <option>Plan de negocio / Emprendimiento</option>
+        <option>Informe investigativo</option>
+        <option>Documental o podcast</option>
+        <option>Exposición / Feria de proyectos</option>
+        <option>Propuesta comunitaria</option>
+        <option>Otro (especificar abajo)</option>
+      </select>
+    </div>
+    <div class="field">
+      <label class="label">Describe el producto en 2 frases</label>
+      <textarea id="productoDesc" name="productoDesc" rows="3" placeholder="¿Qué es exactamente? ¿A quién va dirigido y cuál es su impacto esperado?" oninput="calcProgress()"></textarea>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+  <p style="font-size:0.85rem;font-weight:600;color:var(--ink);margin-bottom:4px">Evaluación por tipo de competencia</p>
+  <p class="hint" style="margin-bottom:1rem">Para cada tipo de competencia, marca los instrumentos que usarás e indica el nivel esperado. Esto ayuda al equipo a tener claridad sobre cómo evidenciarán los aprendizajes.</p>
+
+  <!-- Digitales -->
+  <div class="eval-block">
+    <div class="eval-block-title">
+      <span style="width:10px;height:10px;border-radius:50%;background:var(--blue);display:inline-block"></span>
+      Evaluación de competencias digitales
+    </div>
+    <div class="eval-header-row">
+      <span>Instrumento / estrategia</span><span>¿La usas?</span><span>Nivel esperado</span>
+    </div>
+    <div id="evalDigital"></div>
+  </div>
+
+  <!-- Socioemocionales -->
+  <div class="eval-block">
+    <div class="eval-block-title">
+      <span style="width:10px;height:10px;border-radius:50%;background:#fb6901;display:inline-block"></span>
+      Evaluación de competencias socioemocionales
+    </div>
+    <div class="eval-header-row">
+      <span>Instrumento / estrategia</span><span>¿La usas?</span><span>Nivel esperado</span>
+    </div>
+    <div id="evalSocio"></div>
+  </div>
+
+  <!-- Emprendedoras -->
+  <div class="eval-block">
+    <div class="eval-block-title">
+      <span style="width:10px;height:10px;border-radius:50%;background:var(--amber);display:inline-block"></span>
+      Evaluación de competencias emprendedoras
+    </div>
+    <div class="eval-header-row">
+      <span>Instrumento / estrategia</span><span>¿La usas?</span><span>Nivel esperado</span>
+    </div>
+    <div id="evalEmpre"></div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════
+     BLOQUE 8 · ACUERDOS DEL EQUIPO
+════════════════════════════════════════ -->
+<div class="section">
+  <div class="sec-tag">
+    <span class="sec-dot" style="background:#888"></span>
+    <span class="sec-tag-text">Bloque 8</span>
+    <span class="sec-tag-sub">· Acuerdos y compromisos del equipo docente</span>
+  </div>
+  <p class="hint" style="margin-bottom:0.75rem">Antes de entregar, registren aquí los acuerdos internos del equipo: ¿quién lidera cada fase? ¿cuándo se reúnen? ¿qué recursos necesitan gestionar? ¿hay estudiantes con NEE que requieren adaptaciones? Este campo es el espacio para dejar por escrito lo que el equipo necesita tener claro antes de arrancar.</p>
+  <textarea id="notas" name="notas" rows="4" placeholder="Ej: La docente de Ciencias lidera las fases 1, 2 y 3. El docente de Tecnología apoya con herramientas digitales en la fase 4. Nos reunimos los miércoles a las 2 pm. Hay 2 estudiantes con NEE que requieren ajustes en la presentación oral. Para la fase 5 gestionamos el auditorio con rectoría." oninput="calcProgress()"></textarea>
+</div>
+
+<!-- ENVÍO -->
+<div class="submit-wrap">
+  <div class="submit-email-note">
+    ⚠️ <strong>Importante:</strong> Al enviar, el formulario llegará al correo del consultor pedagógico Fundadiv. Asegúrate de haber completado al menos los campos obligatorios: institución, docentes, pregunta retadora y fases ABP.
+  </div>
+  <div class="btn-row" style="grid-template-columns:1fr auto auto auto">
+    <button type="button" class="submit-btn" id="submitBtn" onclick="submitForm()">
+      Enviar proyecto →
+    </button>
+    <button type="button" class="print-btn" onclick="document.getElementById('shareModal').style.display='flex'" style="gap:6px">
+      <svg width="15" height="15" viewBox="0 0 16 16" fill="none"><circle cx="12" cy="3" r="2" stroke="currentColor" stroke-width="1.3"/><circle cx="12" cy="13" r="2" stroke="currentColor" stroke-width="1.3"/><circle cx="3" cy="8" r="2" stroke="currentColor" stroke-width="1.3"/><path d="M5 7l5-3M5 9l5 3" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/></svg>
+      Compartir
+    </button>
+    <button type="button" class="print-btn" onclick="printPDF()">
+      <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M4 5V2h8v3M4 11H2V6h12v5h-2M4 9h8v5H4V9z" stroke="currentColor" stroke-width="1.3" stroke-linejoin="round"/>
+        <circle cx="12" cy="8" r="0.75" fill="currentColor"/>
+      </svg>
+      Imprimir
+    </button>
+    <button type="button" class="print-btn" onclick="document.getElementById('newFormModal').style.display='flex'" style="gap:6px;color:var(--coral);border-color:#F5C0BB">
+      <svg width="15" height="15" viewBox="0 0 16 16" fill="none"><path d="M8 3v10M3 8h10" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+      Nuevo
+    </button>
+  </div>
+  <div class="msg" id="msgOk"></div>
+  <div class="msg err" id="msgErr" style="display:none"></div>
+  <div id="autosaveNote" style="font-size:0.75rem;color:var(--ink-30);text-align:center;margin-top:8px;display:none">
+    💾 Borrador guardado automáticamente en este dispositivo
+  </div>
+</div>
+
+<!-- MODAL COMPARTIR -->
+<div id="shareModal" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.45);z-index:999;align-items:center;justify-content:center">
+  <div style="background:var(--white);border-radius:var(--radius);padding:2rem;max-width:420px;width:90%;box-shadow:0 8px 32px rgba(0,0,0,0.18)">
+    <h3 style="font-size:1rem;font-weight:600;margin-bottom:6px;color:var(--ink)">Compartir proyecto por correo</h3>
+    <p style="font-size:0.8rem;color:var(--ink-60);margin-bottom:1.2rem;line-height:1.5">Escribe el correo al que quieres enviar una copia del proyecto diligenciado hasta ahora.</p>
+    <div class="field" style="margin-bottom:12px">
+      <label class="label">Correo destinatario</label>
+      <input type="email" id="shareEmail" placeholder="colega@institución.edu.co" style="margin-top:4px">
+    </div>
+    <div style="display:flex;gap:10px">
+      <button onclick="sendShare()" style="flex:1;background:linear-gradient(135deg,var(--teal-mid),#347f87);color:white;border:none;border-radius:var(--radius-sm);padding:10px;font-size:0.9rem;font-weight:500;font-family:var(--font-sans,sans-serif);cursor:pointer">Enviar copia →</button>
+      <button onclick="document.getElementById('shareModal').style.display='none'" style="padding:10px 16px;border:1px solid var(--border);border-radius:var(--radius-sm);background:transparent;font-family:var(--font-sans,sans-serif);cursor:pointer;font-size:0.9rem;color:var(--ink-60)">Cancelar</button>
+    </div>
+    <div id="shareMsg" style="margin-top:10px;font-size:0.8rem;display:none"></div>
+  </div>
+</div>
+
+<!-- MODAL NUEVO FORMULARIO -->
+<div id="newFormModal" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.45);z-index:999;align-items:center;justify-content:center">
+  <div style="background:var(--white);border-radius:var(--radius);padding:2rem;max-width:400px;width:90%;box-shadow:0 8px 32px rgba(0,0,0,0.18)">
+    <h3 style="font-size:1rem;font-weight:600;margin-bottom:8px;color:var(--ink)">¿Iniciar un formulario nuevo?</h3>
+    <p style="font-size:0.82rem;color:var(--ink-60);margin-bottom:1.5rem;line-height:1.6">Se borrará toda la información diligenciada y el borrador guardado. Esta acción no se puede deshacer.<br><br><strong>Asegúrate de haber enviado o impreso el proyecto antes de continuar.</strong></p>
+    <div style="display:flex;gap:10px">
+      <button onclick="clearDraft()" style="flex:1;background:var(--coral);color:white;border:none;border-radius:var(--radius-sm);padding:10px;font-size:0.9rem;font-weight:500;font-family:var(--font-sans,sans-serif);cursor:pointer">Sí, borrar y empezar de nuevo</button>
+      <button onclick="document.getElementById('newFormModal').style.display='none'" style="padding:10px 16px;border:1px solid var(--border);border-radius:var(--radius-sm);background:transparent;font-family:var(--font-sans,sans-serif);cursor:pointer;font-size:0.9rem;color:var(--ink-60)">Cancelar</button>
+    </div>
+  </div>
+</div>
+
+</div><!-- /container -->
+
+<script>
+/* ════════ DATOS DE EVALUACIÓN ════════ */
+const evalDigitalData = [
+  "Portafolio digital con evidencias del proceso",
+  "Rúbrica de uso ético y responsable de herramientas digitales",
+  "Evaluación del producto digital creado (app, video, presentación, etc.)",
+  "Autoevaluación: ¿qué herramientas digitales usé y para qué?",
+  "Observación docente del trabajo en plataformas colaborativas",
+  "Lista de verificación de competencias ISTE al cierre del proyecto"
+];
+const evalSocioData = [
+  "Diario reflexivo o bitácora emocional del proceso",
+  "Coevaluación entre pares: ¿cómo trabajé con mi equipo?",
+  "Autoevaluación socioemocional al inicio y al cierre del proyecto",
+  "Rúbrica de trabajo en equipo y comunicación positiva",
+  "Observación docente de dinámicas grupales durante el proyecto",
+  "Entrevista o conversación de cierre sobre aprendizajes emocionales"
+];
+const evalEmpreData = [
+  "Rúbrica de evaluación del prototipo o solución propuesta",
+  "Autoevaluación del proceso creativo e innovador",
+  "Evaluación de la sustentación oral (argumentación y pensamiento crítico)",
+  "Registro del proceso de planeación y toma de decisiones del equipo",
+  "Retroalimentación de audiencia externa (comunidad, expertos, familias)",
+  "Evidencia de iteración: ¿cómo mejoraron su solución con el tiempo?",
+  "Rúbrica de liderazgo colaborativo: participación, respeto y diálogo"
+];
+const niveles = ["Básico","Satisfactorio","Avanzado"];
+
+/* ════════ BUILD EVAL BLOCKS ════════ */
+function buildEval(data, containerId) {
+  const c = document.getElementById(containerId);
+  c.innerHTML = data.map((d, i) => `
+    <div class="eval-row">
+      <div class="eval-label">${d}</div>
+      <div class="eval-check"><input type="checkbox" id="${containerId}_${i}" onchange="calcProgress()"></div>
+      <div><select style="font-size:0.78rem">${niveles.map(n => `<option>${n}</option>`).join('')}</select></div>
+    </div>`).join('');
+}
+
+/* ════════ MATRIZ ════════ */
+function addMatrizRow() {
+  const tb = document.getElementById("matrizBody");
+  const tr = document.createElement("tr");
+  tr.innerHTML = `
+    <td><input type="text" placeholder="Ej: Ciencias Naturales" oninput="calcProgress()"></td>
+    <td><input type="text" placeholder="Ej: Comprende el ciclo del agua (DBA #3)" oninput="calcProgress()"></td>
+    <td><select onchange="calcProgress()">
+      <option>Digital</option><option>Socioemocional</option><option>Emprendedora</option>
+      <option>Digital + Socioemocional</option><option>Digital + Emprendedora</option>
+      <option>Socioemocional + Emprendedora</option><option>Las tres</option>
+    </select></td>
+    <td><input type="text" placeholder="Ej: Informe en Canva con datos recolectados" oninput="calcProgress()"></td>`;
+  tb.appendChild(tr);
+  calcProgress();
+}
+
+/* ════════ DOCENTES ════════ */
+function addDocente() {
+  const c = document.getElementById("docentesContainer");
+  const row = document.createElement("div");
+  row.className = "docente-row";
+  row.style.marginTop = "8px";
+  row.innerHTML = `
+    <input type="text" placeholder="Nombre completo" class="d-nombre" oninput="calcProgress()">
+    <input type="email" placeholder="correo@institución.edu.co" class="d-correo" oninput="calcProgress()">
+    <input type="text" placeholder="Área que lidera" class="d-area" oninput="calcProgress()">`;
+  c.appendChild(row);
+  calcProgress();
+}
+
+/* ════════ OTRA ÁREA ════════ */
+function toggleOtra(cb) {
+  document.getElementById("otraArea").style.display = cb.checked ? "block" : "none";
+}
+
+/* ════════ PILL TOGGLE ════════ */
+function updatePill(cb, cls) {
+  const pill = cb.closest('.check-pill');
+  if (cb.checked) pill.classList.add(cls);
+  else pill.classList.remove(cls);
+}
+
+/* ════════ PROGRESO ════════ */
+/* ════════ SYNC SELECT→TEXTAREA ════════ */
+function syncSelect(selId, taId) {
+  const sel = document.getElementById(selId);
+  const ta  = document.getElementById(taId);
+  if (!sel || !ta) return;
+  const chosen = sel.options[sel.selectedIndex]?.value || "";
+  if (chosen && ta.value.trim() === "") ta.value = chosen;
+}
+
+function calcProgress() {
+  const fields = ["institucion","grado","tiempo","tituloproyecto","objetivoGeneral","objetivosEspecificos","preguntaRetadora","ods","f1","f2","f3","f4","f5","f6","f3_sel","f4_sel","f5_sel","f6_sel","producto","productoDesc"];
+  let filled = fields.filter(id => {
+    const el = document.getElementById(id);
+    return el && el.value.trim() !== '';
+  }).length;
+  const areas = document.querySelectorAll("#areasGrid input[type=checkbox]:checked").length;
+  if (areas > 0) filled++;
+  const docenteNombres = document.querySelectorAll(".d-nombre");
+  let hasDocente = false;
+  docenteNombres.forEach(d => { if (d.value.trim()) hasDocente = true; });
+  if (hasDocente) filled++;
+  const comps = document.querySelectorAll(".comp-group .check-pill input[type=checkbox]:checked").length;
+  if (comps > 0) filled++;
+  const total = fields.length + 3;
+  const pct = Math.round((filled / total) * 100);
+  document.getElementById("progFill").style.width = pct + "%";
+  document.getElementById("progLabel").textContent = "Completado: " + pct + "%";
+}
+
+/* ════════ COLLECT DATA ════════ */
+function collectDocentes() {
+  return Array.from(document.querySelectorAll(".docente-row")).map(row => {
+    const n = row.querySelector(".d-nombre").value;
+    const c = row.querySelector(".d-correo").value;
+    const a = row.querySelector(".d-area").value;
+    return n ? `${n} — ${a} (${c})` : null;
+  }).filter(Boolean).join('\n');
+}
+function collectCorreos() {
+  return Array.from(document.querySelectorAll(".d-correo")).map(e => e.value).filter(Boolean).join(', ');
+}
+function collectChecked(containerId) {
+  const container = document.getElementById(containerId);
+  if (!container) return '(ninguna seleccionada)';
+  const items = Array.from(container.querySelectorAll('.check-pill')).map(item => {
+    const cb = item.querySelector('input[type=checkbox]');
+    const txt = (item.querySelector('span') || item).textContent.trim();
+    return cb && cb.checked ? '  • ' + txt : null;
+  }).filter(Boolean);
+  return items.length ? items.join('\n') : '(ninguna seleccionada)';
+}
+function collectCompGroup(selector) {
+  // Fallback selector-based version (kept for compatibility)
+  const container = document.querySelector(selector);
+  if (!container) return '(ninguna seleccionada)';
+  return collectCheckedFromEl(container);
+}
+function collectCheckedFromEl(container) {
+  const items = Array.from(container.querySelectorAll('.check-pill')).map(item => {
+    const cb = item.querySelector('input[type=checkbox]');
+    const txt = (item.querySelector('span') || item).textContent.trim();
+    return cb && cb.checked ? '  • ' + txt : null;
+  }).filter(Boolean);
+  return items.length ? items.join('\n') : '(ninguna seleccionada)';
+}
+function collectAreas() {
+  const checked = Array.from(document.querySelectorAll("#areasGrid input[type=checkbox]:checked")).map(c => c.parentElement.textContent.trim());
+  const otra = document.getElementById("otraArea").value;
+  if (otra) checked.push(otra);
+  return checked.join(', ');
+}
+function collectMatriz() {
+  return Array.from(document.querySelectorAll("#matrizBody tr")).map(tr => {
+    const cells = tr.querySelectorAll("td");
+    return Array.from(cells).map(td => { const el = td.querySelector("input,select"); return el ? el.value : ''; }).join(' | ');
+  }).join('\n');
+}
+function collectEval(data, containerId) {
+  return data.map((d, i) => {
+    const cb = document.getElementById(`${containerId}_${i}`);
+    const sel = document.querySelector(`#${containerId} .eval-row:nth-child(${i + 1}) select`);
+    return cb && cb.checked ? `• ${d} → ${sel ? sel.value : 'Básico'}` : null;
+  }).filter(Boolean).join('\n');
+}
+function val(id) { const e = document.getElementById(id); return e ? e.value.trim() : ''; }
+
+/* ════════ SUBMIT ════════ */
+async function submitForm() {
+  const btn = document.getElementById("submitBtn");
+  btn.disabled = true; btn.textContent = "Enviando...";
+  document.getElementById("msgErr").style.display = "none";
+
+  const bodyText = buildBody();
+  const correos = collectCorreos();
+
+  try {
+    // ── Formspree con JSON (evita error 422) ──
+    const payload = {
+      email: correos || "sin-correo@abp.fundadiv.co",
+      _subject: `Plantilla ABP Emprendedores — ${val("tituloproyecto") || val("institucion") || "Sin título"}`,
+      proyecto: bodyText
+    };
+    const formRes = await fetch("https://formspree.io/f/xvzdjkzy", {
+      method: "POST",
+      headers: { "Content-Type": "application/json", "Accept": "application/json" },
+      body: JSON.stringify(payload)
+    });
+    const formJson = await formRes.json().catch(() => ({}));
+    if (!formRes.ok && formJson.error) throw new Error(formJson.error);
+
+    // ── Claude para retroalimentación inmediata ──
+    let fb = {};
+    try {
+      const aiRes = await fetch("https://api.anthropic.com/v1/messages", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          model: "claude-sonnet-4-20250514",
+          max_tokens: 1000,
+          system: `Eres un consultor pedagógico senior colombiano experto en ABP, competencias digitales ISTE, socioemocionales y emprendedoras Fundadiv. Analiza la plantilla y devuelve SOLO este JSON sin backticks:
+{"fortaleza":"2 frases sobre la fortaleza del proyecto","competencias_sugerencia":"una mejora sobre coherencia entre competencias y pregunta retadora","felicitacion":"frase de aliento personalizada para el equipo"}`,
+          messages: [{ role: "user", content: bodyText }]
+        })
+      });
+      const aiData = await aiRes.json();
+      const txt = (aiData.content?.find(b => b.type === "text")?.text || "{}").replace(/```json|```/g, "").trim();
+      fb = JSON.parse(txt);
+    } catch (_) {}
+
+    const ok = document.getElementById("msgOk");
+    ok.innerHTML = `<strong>✓ Proyecto enviado con éxito.</strong> Una copia llegó al correo del consultor pedagógico Fundadiv.<br><br>
+<strong>Retroalimentación pedagógica:</strong><br>
+${fb.fortaleza || "Tu proyecto tiene un enfoque sólido."}<br><br>
+<em>Sobre las competencias:</em> ${fb.competencias_sugerencia || "Verifica que las competencias seleccionadas se reflejen en la evaluación."}<br><br>
+${fb.felicitacion || "Gracias por su dedicación y trabajo en equipo."}`;
+    ok.style.display = "block";
+    btn.textContent = "Proyecto enviado ✓";
+    btn.style.background = "#E6F6F8"; btn.style.color = "var(--teal)"; btn.style.boxShadow = "none";
+  } catch (e) {
+    const err = document.getElementById("msgErr");
+    err.textContent = "Error al enviar. Verifica tu conexión e intenta de nuevo.";
+    err.style.display = "block";
+    btn.disabled = false; btn.textContent = "Enviar proyecto →";
+  }
+}
+
+/* ════════ COMPARTIR ════════ */
+async function sendShare() {
+  const email = document.getElementById("shareEmail").value.trim();
+  const msg = document.getElementById("shareMsg");
+  if (!email || !email.includes("@")) {
+    msg.style.display = "block"; msg.style.color = "var(--coral)";
+    msg.textContent = "Por favor escribe un correo válido."; return;
+  }
+  msg.style.display = "block"; msg.style.color = "var(--ink-60)";
+  msg.textContent = "Enviando...";
+  try {
+    const res = await fetch("https://formspree.io/f/xvzdjkzy", {
+      method: "POST",
+      headers: { "Content-Type": "application/json", "Accept": "application/json" },
+      body: JSON.stringify({
+        email: email,
+        _subject: `Copia Plantilla ABP Emprendedores — ${val("tituloproyecto") || val("institucion") || "Sin título"}`,
+        proyecto: buildBody()
+      })
+    });
+    if (res.ok) {
+      msg.style.color = "var(--teal)";
+      msg.textContent = "✓ Copia enviada a " + email;
+      setTimeout(() => {
+        document.getElementById("shareModal").style.display = "none";
+        msg.style.display = "none";
+      }, 2500);
+    } else { throw new Error(); }
+  } catch (_) {
+    msg.style.color = "var(--coral)";
+    msg.textContent = "No se pudo enviar. Verifica tu conexión.";
+  }
+}
+
+/* ════════ AUTOGUARDADO ════════ */
+const SAVE_KEY = "abp_fundadiv_draft";
+
+function autosave() {
+  const data = {};
+  document.querySelectorAll("input[id]:not([type=checkbox]), select[id], textarea[id]").forEach(el => {
+    data[el.id] = el.value;
+  });
+  const allCbs = Array.from(document.querySelectorAll("input[type=checkbox]"));
+  data["__checkboxes"] = allCbs.map(cb => cb.checked);
+  try { localStorage.setItem(SAVE_KEY, JSON.stringify(data)); } catch(_) {}
+  const note = document.getElementById("autosaveNote");
+  if (note) { note.style.display = "block"; setTimeout(() => { note.style.display = "none"; }, 2000); }
+}
+
+function restoreDraft() {
+  let data;
+  try { data = JSON.parse(localStorage.getItem(SAVE_KEY)); } catch(_) { return; }
+  if (!data) return;
+  document.querySelectorAll("input[id]:not([type=checkbox]), select[id], textarea[id]").forEach(el => {
+    if (data[el.id] !== undefined) el.value = data[el.id];
+  });
+  if (Array.isArray(data["__checkboxes"])) {
+    const allCbs = Array.from(document.querySelectorAll("input[type=checkbox]"));
+    data["__checkboxes"].forEach((checked, i) => {
+      if (allCbs[i]) {
+        allCbs[i].checked = checked;
+        if (checked) {
+          const pill = allCbs[i].closest(".check-pill");
+          if (pill) {
+            if (pill.closest("#compDigital")) updatePill(allCbs[i], "checked-teal");
+            else if (pill.closest("#compSocio")) updatePill(allCbs[i], "checked-purple");
+            else if (pill.closest("#compEmpre")) updatePill(allCbs[i], "checked-amber");
+            else updatePill(allCbs[i], "checked-teal");
+          }
+        }
+      }
+    });
+  }
+  const otraCb = document.querySelector("#otraPill input[type=checkbox]");
+  if (otraCb?.checked) document.getElementById("otraArea").style.display = "block";
+  calcProgress();
+}
+
+function hookAutosave() {
+  document.querySelectorAll("input, select, textarea").forEach(el => {
+    el.addEventListener("change", autosave);
+    el.addEventListener("input", autosave);
+  });
+}
+
+/* ════════ NUEVO FORMULARIO ════════ */
+function clearDraft() {
+  // Borrar localStorage
+  try { localStorage.removeItem(SAVE_KEY); } catch(_) {}
+
+  // Limpiar todos los inputs de texto, selects y textareas
+  document.querySelectorAll("input[type=text], input[type=email], textarea").forEach(el => { el.value = ''; });
+  document.querySelectorAll("select").forEach(el => { el.selectedIndex = 0; });
+
+  // Desmarcar todos los checkboxes y quitar clases de color
+  document.querySelectorAll("input[type=checkbox]").forEach(cb => {
+    cb.checked = false;
+    const pill = cb.closest(".check-pill");
+    if (pill) pill.classList.remove("checked-teal", "checked-purple", "checked-amber");
+  });
+
+  // Ocultar campo "otra área"
+  const otraArea = document.getElementById("otraArea");
+  if (otraArea) otraArea.style.display = "none";
+
+  // Resetear docentes: dejar solo la primera fila vacía
+  const dc = document.getElementById("docentesContainer");
+  if (dc) {
+    const rows = dc.querySelectorAll(".docente-row");
+    rows.forEach((row, i) => { if (i > 0) row.remove(); else row.querySelectorAll("input").forEach(i => i.value = ''); });
+  }
+
+  // Resetear matriz: dejar solo 2 filas vacías
+  const mb = document.getElementById("matrizBody");
+  if (mb) { mb.innerHTML = ''; addMatrizRow(); addMatrizRow(); }
+
+  // Resetear evaluaciones (desmarcar todos)
+  document.querySelectorAll("#evalDigital input[type=checkbox], #evalSocio input[type=checkbox], #evalEmpre input[type=checkbox]").forEach(cb => { cb.checked = false; });
+  document.querySelectorAll("#evalDigital select, #evalSocio select, #evalEmpre select").forEach(sel => { sel.selectedIndex = 0; });
+
+  // Resetear botón de envío
+  const btn = document.getElementById("submitBtn");
+  if (btn) { btn.disabled = false; btn.textContent = "Enviar proyecto →"; btn.style.background = ""; btn.style.color = ""; btn.style.boxShadow = ""; }
+
+  // Ocultar mensajes
+  document.getElementById("msgOk").style.display = "none";
+  document.getElementById("msgErr").style.display = "none";
+
+  // Cerrar modal y recalcular
+  document.getElementById("newFormModal").style.display = "none";
+  window.scrollTo({ top: 0, behavior: "smooth" });
+  calcProgress();
+}
+
+/* ════════ BUILD BODY ════════ */
+function buildBody() {
+  const areas = Array.from(document.querySelectorAll("#areasGrid input[type=checkbox]:checked"))
+    .map(c => c.parentElement.textContent.trim()).join(", ");
+  const otraArea = document.getElementById("otraArea")?.value || "";
+  return `PROYECTO TRANSVERSAL ABP — FUNDADIV
+=====================================
+INSTITUCIÓN: ${val("institucion")}
+GRADO: ${val("grado")}
+DURACIÓN: ${val("tiempo")}
+ÁREAS: ${areas}${otraArea ? ", " + otraArea : ""}
+
+EQUIPO DOCENTE
+--------------
+${collectDocentes()}
+
+TÍTULO Y OBJETIVOS
+------------------
+Título: ${val("tituloproyecto")}
+Objetivo general: ${val("objetivoGeneral")}
+Objetivos específicos:
+${val("objetivosEspecificos")}
+
+COMPETENCIAS SELECCIONADAS
+--------------------------
+[ Digitales — Estándares ISTE ]
+${collectChecked("compDigital")}
+
+[ Socioemocionales — CASEL / Bisquerra / Navegar Seguros ]
+${collectChecked("compSocio")}
+
+[ Emprendedoras — Marco Fundadiv ]
+${collectChecked("compEmpre")}
+
+PREGUNTA RETADORA Y ODS
+------------------------
+Pregunta: ${val("preguntaRetadora")}
+ODS Principal: ${val("ods")}
+ODS Secundario: ${val("ods2")}
+
+MATRIZ DE ALINEACIÓN
+--------------------
+${collectMatriz()}
+
+RUTA ABP — FASES
+-----------------
+1. Definición del problema:
+${val("f1")}
+
+2. Contexto:
+${val("f2")}
+   Necesidades de la comunidad: ${val("f2_necesidades")}
+   Intereses de los estudiantes: ${val("f2_intereses")}
+   Organización de grupos: ${val("f2_tamano")} / Criterio: ${val("f2_criterio")}
+   Roles asignados al equipo:
+${collectChecked("rolesGrid")}
+   Notas grupos: ${val("f2_notas_grupos")}
+
+3. Recolección de información:
+Actividad principal: ${document.getElementById("f3_sel")?.value||""}
+${val("f3")}
+
+4. Síntesis y elaboración del producto:
+Tipo de producto: ${document.getElementById("f4_sel")?.value||""}
+${val("f4")}
+
+5. Presentación de resultados:
+Formato de presentación: ${document.getElementById("f5_sel")?.value||""}
+${val("f5")}
+
+6. Evaluación y reflexión:
+Instrumento de reflexión: ${document.getElementById("f6_sel")?.value||""}
+${val("f6")}
+
+PRODUCTO FINAL
+--------------
+Tipo: ${val("producto")}
+Descripción: ${val("productoDesc")}
+
+EVALUACIÓN
+----------
+Competencias digitales:
+${collectEval(evalDigitalData, "evalDigital")}
+
+Competencias socioemocionales:
+${collectEval(evalSocioData, "evalSocio")}
+
+Competencias emprendedoras:
+${collectEval(evalEmpreData, "evalEmpre")}
+
+ACUERDOS DEL EQUIPO
+-------------------
+${val("notas")}`;
+}
+
+/* ════════ PRINT
+
+/* ════════ PRINT / PDF ════════ */
+function printPDF() {
+  // Open a blank window for printing
+  const pw = window.open('', '_blank', 'width=900,height=700');
+  if (!pw) { alert('Por favor permite las ventanas emergentes para generar el PDF.'); return; }
+
+  // Helper: get full text of a field (including scrolled content)
+  function fieldVal(el) {
+    if (!el) return '';
+    if (el.tagName === 'SELECT') return el.options[el.selectedIndex]?.text || '';
+    return el.value || '';
+  }
+
+  // Helper: get checked labels from a group of checkboxes
+  function checkedLabels(container) {
+    return Array.from(container.querySelectorAll('.check-pill'))
+      .filter(p => p.querySelector('input[type=checkbox]')?.checked)
+      .map(p => (p.querySelector('span') || p).textContent.trim())
+      .join(', ') || '—';
+  }
+
+  // Helper: render a labeled block
+  function row(label, value) {
+    if (!value || value.trim() === '' || value === '—') return '';
+    return `<div class="row"><div class="lbl">${label}</div><div class="val">${value.replace(/\n/g, '<br>')}</div></div>`;
+  }
+
+  function section(title, color, content) {
+    return `<div class="sec"><div class="sec-head" style="border-left:4px solid ${color}">${title}</div>${content}</div>`;
+  }
+
+  // Collect docentes
+  const docenteRows = Array.from(document.querySelectorAll('.docente-row')).map(r => {
+    const n = r.querySelector('.d-nombre')?.value || '';
+    const c = r.querySelector('.d-correo')?.value || '';
+    const a = r.querySelector('.d-area')?.value || '';
+    return n ? `${n} — ${a}${c ? ' (' + c + ')' : ''}` : null;
+  }).filter(Boolean).join('<br>');
+
+  // Collect areas
+  const areas = Array.from(document.querySelectorAll('#areasGrid input[type=checkbox]:checked'))
+    .map(c => c.parentElement.textContent.trim()).join(', ');
+  const otraArea = document.getElementById('otraArea')?.value || '';
+
+  // Collect matriz
+  const matrizRows = Array.from(document.querySelectorAll('#matrizBody tr')).map(tr => {
+    const cells = Array.from(tr.querySelectorAll('td')).map(td => {
+      const el = td.querySelector('input, select');
+      return el ? fieldVal(el) : '';
+    });
+    return cells.some(c => c) ? `<tr>${cells.map(c => `<td>${c}</td>`).join('')}</tr>` : '';
+  }).join('');
+
+  // Collect eval blocks
+  function evalBlock(data, containerId) {
+    return data.map((d, i) => {
+      const cb = document.getElementById(`${containerId}_${i}`);
+      if (!cb?.checked) return '';
+      const sel = document.querySelector(`#${containerId} .eval-row:nth-child(${i+1}) select`);
+      return `<div class="eval-item">✓ ${d} <span class="nivel">${sel?.value || ''}</span></div>`;
+    }).join('');
+  }
+
+  // Collect roles
+  const rolesBlock = document.getElementById('f2_roles_wrap');
+  const roles = rolesBlock
+    ? Array.from(rolesBlock.querySelectorAll('.check-pill'))
+        .filter(p => p.querySelector('input[type=checkbox]')?.checked)
+        .map(p => (p.querySelector('span') || p).textContent.trim())
+        .join('<br>')
+    : checkedLabels(document.querySelector('.fase-card:nth-of-type(2) .check-grid') || document.body);
+
+  const g = id => fieldVal(document.getElementById(id));
+
+  const html = `<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>Proyecto ABP — ${g('tituloproyecto') || g('institucion') || 'Fundadiv'}</title>
+<style>
+  @page { size: A4; margin: 18mm 16mm 18mm 16mm; }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Segoe UI', Arial, sans-serif; font-size: 11px; color: #1a1a2e; line-height: 1.5; }
+  .cover { text-align: center; padding: 24px 0 18px; border-bottom: 2px solid #50aeb8; margin-bottom: 18px; }
+  .cover h1 { font-size: 20px; font-weight: 600; color: #347f87; margin-bottom: 4px; }
+  .cover .sub { font-size: 10px; color: #888; }
+  .cover .meta { font-size: 11px; color: #444; margin-top: 8px; }
+  .sec { margin-bottom: 14px; break-inside: avoid; }
+  .sec-head {
+    font-size: 10px; font-weight: 700; text-transform: uppercase;
+    letter-spacing: 0.06em; color: #444;
+    padding: 5px 8px; background: #f5f5f8;
+    margin-bottom: 6px; border-radius: 3px;
+  }
+  .row { display: grid; grid-template-columns: 150px 1fr; gap: 6px; margin-bottom: 5px; align-items: start; }
+  .lbl { font-size: 10px; font-weight: 600; color: #666; padding-top: 1px; }
+  .val { font-size: 11px; color: #1a1a2e; }
+  .fase { border: 1px solid #e2e2ec; border-radius: 5px; padding: 8px 10px; margin-bottom: 8px; break-inside: avoid; }
+  .fase-title { font-size: 11px; font-weight: 700; color: #1a1a2e; margin-bottom: 4px; }
+  .fase-sub { font-size: 10px; color: #888; margin-bottom: 6px; }
+  .fase-field { margin-bottom: 5px; }
+  .fase-field .lbl { font-size: 10px; font-weight: 600; color: #666; margin-bottom: 2px; }
+  .fase-field .val { font-size: 11px; }
+  table.matriz { width: 100%; border-collapse: collapse; font-size: 10px; margin-top: 4px; }
+  table.matriz th { background: #f5f5f8; color: #666; font-weight: 600; padding: 5px 7px; text-align: left; border: 1px solid #ddd; }
+  table.matriz td { padding: 5px 7px; border: 1px solid #ddd; vertical-align: top; }
+  table.matriz tr:nth-child(even) td { background: #fafafa; }
+  .comp-block { margin-bottom: 6px; }
+  .comp-label { font-size: 10px; font-weight: 700; color: #555; margin-bottom: 3px; }
+  .comp-val { font-size: 10px; color: #333; }
+  .eval-item { font-size: 10px; margin-bottom: 3px; }
+  .nivel { background: #e0f5ef; color: #0f7b61; font-size: 9px; font-weight: 600; padding: 1px 5px; border-radius: 10px; margin-left: 6px; }
+  .org-box { background: #f3f0ff; border: 1px solid #d0ccff; border-radius: 4px; padding: 8px 10px; margin-top: 6px; }
+  .org-box .lbl { color: #5346b4; }
+  .roles-list { font-size: 10px; color: #333; line-height: 1.8; }
+</style>
+</head>
+<body>
+
+<div class="cover">
+  <h1>${g('tituloproyecto') || 'Proyecto Transversal ABP'}</h1>
+  <div class="sub">Formato de planeación · Fundadiv · MEN / DBA / ODS / ISTE</div>
+  <div class="meta">
+    ${g('institucion') ? '<strong>' + g('institucion') + '</strong>' : ''}
+    ${g('grado') ? ' · ' + g('grado') : ''}
+    ${g('tiempo') ? ' · ' + g('tiempo') : ''}
+  </div>
+</div>
+
+${section('Bloque 1 · Identificación del equipo docente', '#50aeb8', `
+  ${row('Institución', g('institucion'))}
+  ${row('Grado', g('grado'))}
+  ${row('Duración', g('tiempo'))}
+  ${row('Áreas integradas', (areas + (otraArea ? ', ' + otraArea : '')) || '—')}
+  ${row('Equipo docente', docenteRows || '—')}
+`)}
+
+${section('Bloque 2 · Título y objetivos', '#347f87', `
+  ${row('Título del proyecto', g('tituloproyecto'))}
+  ${row('Objetivo general', g('objetivoGeneral'))}
+  ${row('Objetivos específicos', g('objetivosEspecificos'))}
+`)}
+
+${section('Bloque 3 · Competencias seleccionadas', '#532f91', `
+  <div class="comp-block"><div class="comp-label">Competencias digitales (ISTE)</div>
+    <div class="comp-val">${checkedLabels(document.querySelectorAll('.comp-group')[0] || document.body)}</div></div>
+  <div class="comp-block"><div class="comp-label">Competencias socioemocionales</div>
+    <div class="comp-val">${checkedLabels(document.querySelectorAll('.comp-group')[1] || document.body)}</div></div>
+  <div class="comp-block"><div class="comp-label">Competencias emprendedoras (Fundadiv)</div>
+    <div class="comp-val">${checkedLabels(document.querySelectorAll('.comp-group')[2] || document.body)}</div></div>
+`)}
+
+${section('Bloque 4 · Pregunta retadora y ODS', '#fb6901', `
+  ${row('Pregunta retadora', g('preguntaRetadora'))}
+  ${row('ODS principal', fieldVal(document.getElementById('ods')))}
+  ${row('ODS secundario', fieldVal(document.getElementById('ods2')))}
+`)}
+
+${section('Bloque 5 · Matriz de alineación curricular', '#d45a00', `
+  <table class="matriz">
+    <thead><tr><th>Área</th><th>Estándar MEN / DBA</th><th>Tipo de competencia</th><th>¿Cómo se evidencia?</th></tr></thead>
+    <tbody>${matrizRows}</tbody>
+  </table>
+`)}
+
+${section('Bloque 6 · Ruta de acción — fases del ABP', '#532f91', `
+  <div class="fase">
+    <div class="fase-title">1. Definición del problema</div>
+    <div class="fase-sub">Presentar el reto auténtico · Activar saberes previos · Generar necesidad de aprender</div>
+    <div class="fase-field"><div class="val">${g('f1') || '—'}</div></div>
+  </div>
+  <div class="fase">
+    <div class="fase-title">2. Contexto</div>
+    <div class="fase-sub">Necesidades de la comunidad · Intereses de los estudiantes · Organización de equipos</div>
+    <div class="fase-field"><div class="lbl">Actividades</div><div class="val">${g('f2') || '—'}</div></div>
+    <div class="fase-field"><div class="lbl">Necesidades identificadas</div><div class="val">${g('f2_necesidades') || '—'}</div></div>
+    <div class="fase-field"><div class="lbl">Intereses de los estudiantes</div><div class="val">${g('f2_intereses') || '—'}</div></div>
+    <div class="org-box">
+      <div class="lbl" style="font-weight:700;margin-bottom:4px">Organización de grupos y roles</div>
+      ${row('Tamaño del grupo', fieldVal(document.getElementById('f2_tamano')))}
+      ${row('Criterio de conformación', fieldVal(document.getElementById('f2_criterio')))}
+      <div class="lbl" style="margin-top:4px;margin-bottom:2px">Roles asignados</div>
+      <div class="roles-list">${Array.from(document.querySelectorAll('.fase-card .check-grid .check-pill')).filter(p=>p.querySelector('input[type=checkbox]')?.checked).map(p=>'✓ '+(p.querySelector('span')||p).textContent.trim()).join('<br>') || '—'}</div>
+      ${row('Notas', g('f2_notas_grupos'))}
+    </div>
+  </div>
+  <div class="fase">
+    <div class="fase-title">3. Recolección de información</div>
+    <div class="fase-sub">Investigar · Explorar fuentes · Contrastar datos · Documentar hallazgos</div>
+    <div class="fase-field"><div class="val">${g('f3') || '—'}</div></div>
+  </div>
+  <div class="fase">
+    <div class="fase-title">4. Síntesis y elaboración del producto</div>
+    <div class="fase-sub">Construir la solución · Prototipar · Iterar con retroalimentación de pares</div>
+    <div class="fase-field"><div class="val">${g('f4') || '—'}</div></div>
+  </div>
+  <div class="fase">
+    <div class="fase-title">5. Presentación de resultados</div>
+    <div class="fase-sub">Comunicar ante una audiencia real · Defender ideas · Recibir retroalimentación externa</div>
+    <div class="fase-field"><div class="val">${g('f5') || '—'}</div></div>
+  </div>
+  <div class="fase">
+    <div class="fase-title">6. Evaluación y reflexión</div>
+    <div class="fase-sub">Metacognición · Autoevaluación · Coevaluación · Aprendizajes clave</div>
+    <div class="fase-field"><div class="val">${g('f6') || '—'}</div></div>
+  </div>
+`)}
+
+${section('Bloque 7 · Producto final y evaluación', '#fb6901', `
+  ${row('Tipo de producto', fieldVal(document.getElementById('producto')))}
+  ${row('Descripción', g('productoDesc'))}
+  <div class="comp-block" style="margin-top:8px"><div class="comp-label">Evaluación — Competencias digitales</div>
+    <div>${evalBlock(evalDigitalData, 'evalDigital') || '—'}</div></div>
+  <div class="comp-block"><div class="comp-label">Evaluación — Competencias socioemocionales</div>
+    <div>${evalBlock(evalSocioData, 'evalSocio') || '—'}</div></div>
+  <div class="comp-block"><div class="comp-label">Evaluación — Competencias emprendedoras</div>
+    <div>${evalBlock(evalEmpreData, 'evalEmpre') || '—'}</div></div>
+`)}
+
+${section('Bloque 8 · Acuerdos y compromisos del equipo docente', '#555', `
+  <div style="font-size:11px;white-space:pre-wrap">${g('notas') || '—'}</div>
+`)}
+
+</body>
+</html>`;
+
+  pw.document.write(html);
+  pw.document.close();
+  pw.onload = () => { pw.focus(); pw.print(); };
+}
+
+/* ════════ INIT ════════ */
+buildEval(evalDigitalData, "evalDigital");
+buildEval(evalSocioData, "evalSocio");
+buildEval(evalEmpreData, "evalEmpre");
+addMatrizRow(); addMatrizRow();
+restoreDraft();
+hookAutosave();
+calcProgress();
+</script>
+</body>
+</html>
